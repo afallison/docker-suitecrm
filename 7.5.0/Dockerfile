@@ -2,8 +2,8 @@ FROM php:5.6-apache
 
 # SugarCRM 7.5
 ENV DOWNLOAD_URL http://iweb.dl.sourceforge.net/project/suitecrm/SuiteCRM%207.5.zip
-ENV DOWNLOAD_FILE SuiteCRM 7.5.zip
-ENV EXTRACT_FOLDER SuiteCRM 7.5
+ENV DOWNLOAD_FILE SuiteCRM_7.5.zip
+ENV EXTRACT_FOLDER SuiteCRM_7.5
 ENV WWW_FOLDER /var/www/html
 ENV WWW_USER www-data
 ENV WWW_GROUP www-data
