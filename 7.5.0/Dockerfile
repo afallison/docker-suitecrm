@@ -1,6 +1,6 @@
 FROM php:5.6-apache
 
-# SugarCRM 7.21 MAX
+# SugarCRM 7.5
 ENV DOWNLOAD_URL http://iweb.dl.sourceforge.net/project/suitecrm/SuiteCRM%207.5.zip
 ENV DOWNLOAD_FILE SuiteCRM 7.5.zip
 ENV EXTRACT_FOLDER SuiteCRM 7.5
