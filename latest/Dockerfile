@@ -3,7 +3,7 @@ FROM php:5.6-apache
 ENV USE_VERSION 7.5.1
 ENV DOWNLOAD_URL http://iweb.dl.sourceforge.net/project/suitecrm/SuiteCRM-${USE_VERSION}.zip
 ENV DOWNLOAD_FILE SuiteCRM-${USE_VERSION}.zip
-ENV EXTRACT_FOLDER SuiteCRM-${USE_VERSION}
+ENV EXTRACT_FOLDER /tmp/SuiteCRM-${USE_VERSION}
 ENV WWW_FOLDER /var/www/html
 ENV WWW_USER www-data
 ENV WWW_GROUP www-data
