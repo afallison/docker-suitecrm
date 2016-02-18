@@ -1,9 +1,9 @@
 FROM php:5.6-apache
 
-# SugarCRM 7.5
-ENV DOWNLOAD_URL http://iweb.dl.sourceforge.net/project/suitecrm/SuiteCRM%207.5.zip
-ENV DOWNLOAD_FILE SuiteCRM_7.5.zip
-ENV EXTRACT_FOLDER SuiteCRM_7.5
+# SugarCRM 7.5.1 MAX
+ENV DOWNLOAD_URL http://iweb.dl.sourceforge.net/project/suitecrm/suitecrm-7.5.1.zip
+ENV DOWNLOAD_FILE suitecrm-7.5.1-max.zip
+ENV EXTRACT_FOLDER SuiteCRM-7.5.1-MAX
 ENV WWW_FOLDER /var/www/html
 ENV WWW_USER www-data
 ENV WWW_GROUP www-data
@@ -16,13 +16,13 @@ RUN apt-get update && apt-get upgrade -y && \
 
 WORKDIR /tmp
 
-RUN curl "${DOWNLOAD_URL}" > $DOWNLOAD_FILE && \
-  unzip $DOWNLOAD_FILE && \
-  rm $DOWNLOAD_FILE && \
-  rm -rf ${WWW_FOLDER}/* && \
-  cp -R ${EXTRACT_FOLDER}/* ${WWW_FOLDER}/ && \
-  chown -R ${WWW_USER}:${WWW_GROUP} ${WWW_FOLDER}/* && \
-  chown -R ${WWW_USER}:${WWW_GROUP} ${WWW_FOLDER}
+RUN curl "${DOWNLOAD_URL}" > $DOWNLOAD_FILE
+RUN unzip $DOWNLOAD_FILE
+RUN rm $DOWNLOAD_FILE
+RUN rm -rf ${WWW_FOLDER}/*
+RUN cp -R ${EXTRACT_FOLDER}/* ${WWW_FOLDER}/
+RUN chown -R ${WWW_USER}:${WWW_GROUP} ${WWW_FOLDER}/*
+RUN chown -R ${WWW_USER}:${WWW_GROUP} ${WWW_FOLDER}
 
 ADD php.ini /usr/local/etc/php/php.ini
 ADD config_override.php.pyt /usr/local/src/config_override.php.pyt
@@ -37,4 +37,3 @@ RUN crontab /root/crons.conf
 
 EXPOSE 80
 ENTRYPOINT ["/usr/local/bin/init.sh"]
-
