@@ -1,17 +1,43 @@
-## How to use this image
+## Basic Usage
+```
+docker run --name suitecrm \
+-e DATABASE_NAME=thedbname \
+-e DB_TYPE=mysql \
+-e DB_MANAGER=MysqlManager \
+-e DB_HOST_NAME=thedbhost \
+-e DATABASE_NAME=thedbname \
+-e DB_USER_NAME=theusername \
+-e DB_PASSWORD=thepassword \
+-d afallison/docker-suitecrm suitecrm
+```
 
-### Running with Docker Compose
+## Advanced Usage
+```
+# Build MariaDB container
+docker run --name mariadb -v /custom-folder/mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD="thepassword" -d mariadb
 
-The [full Github project](https://github.com/Spantree/docker-suitecrm) defines a Docker Compose environment which runs SugarCRM in one container and a MySQL instance in another. To set up SuiteCRM using this approach, please do the following:
+# Build Nginx
+docker run -d -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx-proxy
 
-1. Install [Docker and Docker Compose](https://docs.docker.com/compose/install/)
-2. Run `docker-compose up` from the root of this project.
-3. Access `http://{docker_host}:8080` from your web browser to finish setting up SuiteCRM.
+# Build Redis
+docker run --name redis -d redis
 
-### Running with Docker Run
+# Build it
+docker run --name suitecrm \
+--link redis:redis \
+--link mariadb:mysql \
+-v /custom-folder:/var/www/html \
+-e DATABASE_NAME=thedbname \
+-e DB_TYPE=mysql \
+-e DB_MANAGER=MysqlManager \
+-e DB_HOST_NAME=thedbhost \
+-e DATABASE_NAME=thedbname \
+-e DB_USER_NAME=theusername \
+-e DB_PASSWORD=thepassword \
+-e VIRTUAL_HOST=www.mysuitedomain.net \
+-d afallison/docker-suitecrm suitecrm
 
-If you already have MySQL installed or want to use a platform service like Amazon RDS, you can run the SuiteCRM container seperately using Docker run. To set up SuiteCRM using this approach, please do the following:
+```
+---
 
-1. Install [Docker](http://docs.docker.com/installation/)
-2. Run `docker run --name some-suitecrm -e DB_HOST_NAME=yourhostname -e DATABASE_NAME=yourdatabasename -e DB_USER_NAME=yourusername -e DB_PASSWORD=yourpassword -e DB_TYPE=mysql -e DB_TCP_PORT=3306 -e DB_MANAGER=MysqlManager -p 2080:80 -d spantree/suitecrm`
-3. Access `http://{docker_host}:2080` from your web browser to finish setting up SuiteCRM.
+Thanks to original build from: https://github.com/Spantree/docker-suitecrm
